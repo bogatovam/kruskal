@@ -1,3 +1,4 @@
+#include <iostream>
 #include "../include/utils.h"
 #include "../include/disjoint_set_union.h"
 
@@ -9,7 +10,7 @@ Graph graph_utils::generateConfusionMatrix(std::size_t n, std::size_t m) {
         throw std::runtime_error("Unable to create graph with given parameters");
     }
 
-    std::uniform_int_distribution<int> dist_distribution(1, 5);
+    std::uniform_real_distribution<Distance> dist_distribution(1, 1000);
     std::uniform_int_distribution<std::size_t> vertices_distribution(0, n - 1);
     std::random_device rd;
     std::mt19937 gen(rd());
@@ -38,7 +39,7 @@ Graph graph_utils::generateConfusionMatrix(std::size_t n, std::size_t m) {
         while (true) {
             a = vertices_distribution(gen);
             b = vertices_distribution(gen);
-            if ( a != b && (g[b][a] == NON_EXISTENT_EDGE || g[a][b] == NON_EXISTENT_EDGE)) {
+            if (a != b && (g[b][a] == NON_EXISTENT_EDGE || g[a][b] == NON_EXISTENT_EDGE)) {
                 break;
             }
         }
@@ -135,8 +136,12 @@ std::size_t sorting::split(WeightedEdges &data, std::size_t left, std::size_t ri
     return i;
 }
 
-int graph_utils::calculateDensity(std::size_t n, std::size_t m) {
-    return (2u * m) / (n * (n - 1));
+double graph_utils::calculateDensity(std::size_t n, std::size_t m) {
+    return (2.0 * m) / (n * (n - 1));
+}
+
+std::size_t graph_utils::getEdgesCount(const size_t n, const double d) {
+    return static_cast<std::size_t>(d * n * (n - 1) / 2);
 }
 
 std::string utils::get_current_datetime_str() {

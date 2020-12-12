@@ -10,7 +10,7 @@
 #include <random>
 #include <numeric>
 
-typedef int Distance;
+typedef double Distance;
 
 typedef std::vector<std::vector<Distance>> Graph;
 
@@ -30,9 +30,13 @@ namespace graph_utils {
 
     bool isGraphTree(std::size_t n, const WeightedEdges &edges);
 
-    int calculateDensity(std::size_t n, std::size_t m);
+    double calculateDensity(std::size_t n, std::size_t m);
 
     bool isThereCycle(std::vector<int> &used, const Graph &g, size_t v);
+
+    std::size_t getEdgesCount(const size_t n, const double d);
+
+    std::size_t getEdgesCount(const size_t n, const double d);
 }
 
 namespace sorting {
